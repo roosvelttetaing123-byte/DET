@@ -9,9 +9,9 @@ async function startRecording(){
  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){status('Recording requires a supported browser on HTTPS or localhost. You can still practice aloud.');return}
  REC.pending=true;const epoch=sessionEpoch,media=mediaEpoch;let stream;
  try{stream=await navigator.mediaDevices.getUserMedia({audio:true});if(epoch!==sessionEpoch||media!==mediaEpoch){stream.getTracks().forEach(t=>t.stop());return}
- const r=new MediaRecorder(stream),chunks=[];REC.stream=stream;REC.recorder=r;REC.chunks=chunks;REC.started=Date.now();REC.recorded=false;
+ const r=new MediaRecorder(stream),chunks=[],recordingStarted=Date.now();REC.stream=stream;REC.recorder=r;REC.chunks=chunks;REC.started=Date.now();REC.recorded=false;
  r.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
- r.onstop=()=>{const blob=new Blob(chunks,{type:r.mimeType||'audio/webm'});stream.getTracks().forEach(t=>t.stop());if(blob.size){const url=URL.createObjectURL(blob);REC.clips.push({url,seconds:Math.max(0,(Date.now()-REC.started)/1000)});REC.recorded=true;const a=document.querySelector('#playback');if(a&&!activeExam&&epoch===sessionEpoch){if(REC.url)URL.revokeObjectURL(REC.url);REC.url=URL.createObjectURL(blob);a.src=REC.url;a.hidden=false}}};
+ r.onstop=()=>{const blob=new Blob(chunks,{type:r.mimeType||'audio/webm'});stream.getTracks().forEach(t=>t.stop());if(epoch!==sessionEpoch)return;if(blob.size){const url=URL.createObjectURL(blob);REC.clips.push({url,seconds:Math.max(0,(Date.now()-recordingStarted)/1000)});REC.recorded=true;const a=document.querySelector('#playback');if(a&&!activeExam&&epoch===sessionEpoch){if(REC.url)URL.revokeObjectURL(REC.url);REC.url=URL.createObjectURL(blob);a.src=REC.url;a.hidden=false}}};
  r.start();const b=document.querySelector('#recordBtn');if(b){b.textContent='Stop recording';b.disabled=false}status('Microphone recording is active. Audio stays in this session.');
  }catch(e){stream?.getTracks().forEach(t=>t.stop());status('Microphone unavailable or permission denied. Allow microphone access and try again, or practice aloud.');}finally{if(epoch===sessionEpoch&&media===mediaEpoch)REC.pending=false}
 }

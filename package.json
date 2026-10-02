@@ -1,1 +1,15 @@
-{"name":"det-coach","version":"0.1.0","private":true,"scripts":{"test":"node tests/validate-content.js"},"description":"Beginner-first DET teacher and examiner"}
+{
+  "name": "det-coach",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node tests/validate-content.js",
+    "test:browser": "playwright test",
+    "validate": "npm test && npm run test:browser"
+  },
+  "description": "Beginner-first DET teacher and examiner",
+  "devDependencies": {
+    "@axe-core/playwright": "4.11.1",
+    "@playwright/test": "1.58.2"
+  }
+}

@@ -64,15 +64,30 @@ Verified against official sources: 2026-10-03.
 - 7-day intensive and 14-day recommended study plans
 - Targeted dictation, blank, speaking and writing drills
 - Local microphone recording/playback (browser permission required)
-- Standard-frequency DET-style mock composition
-- Timed open-response tasks and Interactive Speaking sequence
+- Representative-frequency fixed DET-style mock composition
+- Shared section timers, separate preparation periods, listening summaries and audio-only Interactive Speaking
 - Objective correction report; no fabricated DET score
 - Writing/speaking review rubrics aligned to published scoring dimensions
 - Persistent lesson progress, mistakes, mock history and setup checklist
 - Test-day setup rehearsal
-- GitHub Actions content validation
+- GitHub Actions content, syntax and desktop/mobile browser validation
 
 ## Important fidelity notes
 This is an independent preparation tool, not Duolingo. The certified DET adapts some item difficulty and Interactive Speaking can select later prompts based on earlier responses. This static app approximates published task mechanics and frequencies but does not claim to reproduce adaptive selection or the proprietary grading engine.
 
 Browser speech synthesis is used for original listening-practice material. Microphone recordings stay local in the browser session and are not uploaded by this static build.
+
+## Run and validate
+Requires Node 22 or newer for tooling. The application itself is static HTML/CSS/JavaScript.
+
+```sh
+npm ci
+npm test
+npx playwright install --with-deps chromium
+npm run test:browser
+node tests/server.js
+```
+
+Open http://127.0.0.1:4173. For deployment, serve the root static files over HTTPS. No build step or API keys are needed. Browser tests cover 1440px desktop, 390px touch mobile and 320px narrow layouts.
+
+See [verified mechanics and fidelity limits](docs/DET-SPEC.md), [release audit](docs/RELEASE-AUDIT.md), [design context](DESIGN.md) and [behavior contract](UX-CONTRACT.md). This release is a beginner practice coach; the mock is not a faithful certified exam replica. Images are original SVG illustrations, not photographs. Audio recording and replay need a compatible browser; physical iPhone microphone behavior requires manual device verification.

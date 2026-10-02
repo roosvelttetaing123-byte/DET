@@ -57,3 +57,22 @@ Read and Select, Fill in the Blanks, Read and Complete, Listen and Type, Interac
 - Test policies: https://testcenter.zendesk.com/hc/en-us/articles/360052828331-Test-Policies-Rules-and-Requirements
 
 Verified against official sources: 2026-10-03.
+
+
+## v1 feature set
+- 28 beginner-first lessons
+- 7-day intensive and 14-day recommended study plans
+- Targeted dictation, blank, speaking and writing drills
+- Local microphone recording/playback (browser permission required)
+- Standard-frequency DET-style mock composition
+- Timed open-response tasks and Interactive Speaking sequence
+- Objective correction report; no fabricated DET score
+- Writing/speaking review rubrics aligned to published scoring dimensions
+- Persistent lesson progress, mistakes, mock history and setup checklist
+- Test-day setup rehearsal
+- GitHub Actions content validation
+
+## Important fidelity notes
+This is an independent preparation tool, not Duolingo. The certified DET adapts some item difficulty and Interactive Speaking can select later prompts based on earlier responses. This static app approximates published task mechanics and frequencies but does not claim to reproduce adaptive selection or the proprietary grading engine.
+
+Browser speech synthesis is used for original listening-practice material. Microphone recordings stay local in the browser session and are not uploaded by this static build.

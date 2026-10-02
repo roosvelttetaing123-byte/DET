@@ -1,0 +1,1 @@
+{"name":"det-coach","version":"0.1.0","private":true,"scripts":{"test":"node tests/validate-content.js"},"description":"Beginner-first DET teacher and examiner"}

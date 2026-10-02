@@ -19,3 +19,14 @@ open:[
 ],
 interactive:["What do you usually do after work or school?","Why do you enjoy that activity?","Tell me about a time when you did it with someone else.","What can make it difficult to find time for hobbies?","How could a busy person make more time for an enjoyable activity?","Do you think hobbies are important? Explain your opinion."]
 };
+window.buildStandardMock=function(){
+ const base=MOCK.objective, out=[];
+ const select=base.filter(x=>x.type==="Read and Select"), blank=base.filter(x=>x.type==="Fill in the Blanks"), listen=base.filter(x=>x.type==="Listen and Type"), read=base.filter(x=>x.type==="Interactive Reading"), il=base.filter(x=>x.type==="Interactive Listening");
+ for(let i=0;i<16;i++){let q={...select[i%select.length]};if(i%3===2)q={...q,display:["achievely","reliable","convenient","arrangify","evidence","responsiblify"][i%6],answer:["achievely","arrangify","responsiblify"].includes(["achievely","reliable","convenient","arrangify","evidence","responsiblify"][i%6])?1:0};out.push(q)}
+ for(let i=0;i<7;i++)out.push({...blank[i%blank.length]});
+ for(let i=0;i<4;i++)out.push({type:"Read and Complete",skill:"Reading",seconds:180,prompt:"Complete the unfinished word.",display:["A clear sch_____ helps me manage my time.","The course is con_______ because I can study at home.","Please exp____ your answer clearly.","This is a useful opp________ to practice."][i],input:true,answer:["schedule","convenient","explain","opportunity"][i]});
+ for(let i=0;i<7;i++)out.push({...listen[i%listen.length],audio:PRACTICE.dictation[(i+2)%PRACTICE.dictation.length],answer:PRACTICE.dictation[(i+2)%PRACTICE.dictation.length]});
+ for(let set=0;set<2;set++)for(let i=0;i<6;i++)out.push({...read[0],type:"Interactive Reading "+(set+1)+" · "+(i+1)+"/6"});
+ for(let set=0;set<2;set++)for(let i=0;i<9;i++)out.push({...il[0],type:"Interactive Listening "+(set+1)+" · "+(i+1)+"/9"});
+ return out;
+};
